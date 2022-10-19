@@ -26,6 +26,7 @@ fetch("http://localhost:3000/api/products")
 
         //   Ajoût du lien dans l'élément
         getSectionItems.appendChild(newLink);
+        newLink.href = `./product.html?id=${dataProducts[getProduct]._id}`;
 
         //   Ajoût de l'article dans le lien
         newLink.appendChild(newArticle);
