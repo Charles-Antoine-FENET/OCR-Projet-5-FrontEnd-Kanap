@@ -1,6 +1,6 @@
 console.log("script.js connecté !!");
 
-// 1/ Récuperrer les données de l'API>>> Creer une fonction qui récupère les data dans un variable
+// Récuperrer les données de l'API
 
 fetch("http://localhost:3000/api/products")
   .then(function (apiProductsResult) {
@@ -26,15 +26,15 @@ fetch("http://localhost:3000/api/products")
 
         //   Ajoût du lien dans l'élément
         getSectionItems.appendChild(newLink);
-        newLink.href = `./product.html?id=${dataProducts[getProduct]._id}`;
+        newLink.setAttribute("href", `./product.html?id=${dataProducts[getProduct]._id}`);
 
         //   Ajoût de l'article dans le lien
         newLink.appendChild(newArticle);
 
         //   Ajoût de l'img dans l'article
         newArticle.appendChild(newImg);
-        newImg.src = dataProducts[getProduct].imageUrl;
-        newImg.alt = dataProducts[getProduct].altTxt;
+        newImg.setAttribute("src", dataProducts[getProduct].imageUrl);
+        newImg.setAttribute("alt", dataProducts[getProduct].altTxt);
 
         //   Ajoût de titre du nouveau produit dans l'article
         newArticle.appendChild(newProductName);
