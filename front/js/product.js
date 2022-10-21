@@ -36,14 +36,23 @@ fetch("http://localhost:3000/api/products/" + currentId)
       document.getElementById("price").textContent = dataProduct.price;
       document.getElementById("description").textContent = dataProduct.description;
 
-    //   for(colorChoice in dataProduct.colors){
-    //     // Initialisation des éléments à creer dans le DOM
-    //     let colorOption = document.get
+    //   Creation des choix multiples
+      for(colorChoice of dataProduct.colors){
+        console.log(dataProduct.colors[colorChoice])
+        // Initialisation des éléments à creer dans le DOM
+        function creatColorChoices(){
+            let colorOption = document.createElement("option"); // Création du choix de couleur
+            document.getElementById("colors").appendChild(colorOption);//positionnement sur l'élément parent et intégration des éléments enfants
+            colorOption.setAttribute = ("value", colorChoice); // Ajoût des attributs "value" a chaque iteration de la boucle et callback sur la couleur de l'iteration.
+            colorOption.innerText = colorChoice; // Intégration de la couleur que l'itération aura donnée, dans la balise html
+        }
+        creatColorChoices(dataProduct.colors[colorChoice]); //execution de la creation des elements dans ma boucle
+        
 
-    //     // Positionnement sur l'élément qui va recevoir les nouveaux éléments
+        // Positionnement sur l'élément qui va recevoir les nouveaux éléments
 
-    //     // ajoût du choix possible
-    //   }
+        // ajoût du choix possible2
+      }
     }
     creatProduct(dataProduct);
   });

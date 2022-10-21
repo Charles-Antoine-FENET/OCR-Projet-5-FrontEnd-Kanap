@@ -1,1 +1,4 @@
 .DS_Store
+front/js/.DS_Store
+back/node_modules
+back/.DS_Store
