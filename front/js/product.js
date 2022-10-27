@@ -19,7 +19,7 @@ fetch("http://localhost:3000/api/products/" + currentId)
   })
   .then((jsonData) => displayProductPage(jsonData));
 
-// Création de la fonction qui va creer les éléments nécessaire à la page
+// Création de la fonction qui va creer les éléments nécessaires à la page
 function displayProductPage(dataProduct) {
   let getItemImg = document.querySelector(".item__img");
   getItemImg.innerHTML = `<img src=${dataProduct.imageUrl} alt=${dataProduct.altTxt}>`;
@@ -53,7 +53,8 @@ function getProductOrdered() {
         colorOfProduct: colorSelected,
       };
       console.table(productOrdered);
-      // getBasket(productOrdered);
+      addToBasket(productOrdered);
+      alert(`Votre produit à été ajouté au panier`)
     } else {
       alert(
         "Bonjour, Veuillez choisir choisir une couleur et/ou une quantité valide."
@@ -63,9 +64,18 @@ function getProductOrdered() {
 }
 getProductOrdered();
 
+function addToBasket(productOrdered) {
 
-
-
+  let basket = JSON.parse(localStorage.getItem("basket"));
+  console.log("Apperçu du panier", basket);
+  if (basket == null) {
+    basket = [];
+    console.log("Initialisation d'un panier car il n'y en avait pas", panier);
+  }
+  basket.push(productOrdered);
+  // panier.push({id:123456789, color: "green", quantity: 2})
+  window.localStorage.setItem("basket", JSON.stringify(basket));
+}
 
 // Zone d'archive du dirty code.
 
