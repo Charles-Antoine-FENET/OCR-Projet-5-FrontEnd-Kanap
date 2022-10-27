@@ -49,7 +49,7 @@ function getProductOrdered() {
       console.log("color selected and quantity valid");
       let productOrdered = {
         idOfProduct: currentId,
-        quantityOfProduct: productQuantity,
+        quantityOfProduct: parseInt(productQuantity),
         colorOfProduct: colorSelected,
       };
       console.table(productOrdered);
@@ -70,10 +70,14 @@ function addToBasket(productOrdered) {
   console.log("Apperçu du panier", basket);
   if (basket == null) {
     basket = [];
-    console.log("Initialisation d'un panier car il n'y en avait pas", panier);
+    console.log("Initialisation d'un panier car il n'y en avait pas", basket);
   }
-  basket.push(productOrdered);
-  // panier.push({id:123456789, color: "green", quantity: 2})
+  let checkBasket = basket.find(product => product.idOfProduct == productOrdered.idOfProduct && product.colorOfProduct == productOrdered.colorOfProduct)
+  if(checkBasket){
+    checkBasket.quantityOfProduct += productOrdered.quantityOfProduct;
+  }else{
+    basket.push(productOrdered);
+  }
   window.localStorage.setItem("basket", JSON.stringify(basket));
 }
 
