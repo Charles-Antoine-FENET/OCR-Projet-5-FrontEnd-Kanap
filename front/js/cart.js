@@ -1,32 +1,37 @@
 // test de la connection
 console.log("cart.js connecté !!");
-
 // Création de la variable basket. Elle a pour but de recupérer et transformer en objet JS les éléments
 // qui se trouvent dans le local storage sous la clé "basket"
 let basket = JSON.parse(localStorage.getItem("basket"));
 console.log(basket);
 creatBasketProductList(basket);
 
+// const reponse = await fetch("http://localhost:3000/api/products/");
+// const productTest = await reponse.json();
+// console.log("test= ", productTest);
+
 // Création d'une fonction contenant une boucle qui va parcourir l'objet issu du local storage et creer puis renseigner les elements HTML
 // Cette fonction doit être asynchrone car nous souhaitons attendre la réponse du serveur avant de lancer la création des éléments dans le Dom
-// Sans l'async et l'await, les éléments crées risquent de se lancer avance la réponse du serveur et donc creer une erreur d'affichage.
+// Sans l'async et l'await, les éléments crées risquent de se lancer avant la réponse du serveur et donc creer une erreur d'affichage.
 async function creatBasketProductList(productOrdered) {
-
-    // Création de l'itération "productOrdered" qui va parcourir le tableau "basket" qui est notre panier dans le local storage
+  // Création de l'itération "productOrdered" qui va parcourir le tableau "basket" qui est notre panier dans le local storage
+  const total = [];
   for (productOrdered in basket) {
-
     // Appel de l'API pour obtenir les informations produits
-    let apiDataProducts = await fetch("http://localhost:3000/api/products/" + basket[productOrdered].idOfProduct).then(
-      function (apiProductsResult) {
-        if (apiProductsResult.ok) {
-          return apiProductsResult.json();
-        }
+    let apiDataProducts = await fetch(
+      "http://localhost:3000/api/products/" + basket[productOrdered].idOfProduct
+    ).then(function (apiProductsResult) {
+      if (apiProductsResult.ok) {
+        return apiProductsResult.json();
       }
-    );
+    });
 
     // Lancement de la création des éléments après avoir recu la réponse du serveur.
     // Positionnement sur l'élément HTML qui va recevoir les nouveaux éléments.
     let newArticle = document.createElement("article");
+    const totalPriceArticle =
+      basket[productOrdered].quantityOfProduct * apiDataProducts.price;
+    total.push(totalPriceArticle);
     newArticle.innerHTML = `
     <article class="cart__item" data-id="${basket[productOrdered].idOfProduct}" data-color="${basket[productOrdered].colorOfProduct}">
         <div class="cart__item__img">
@@ -36,7 +41,7 @@ async function creatBasketProductList(productOrdered) {
             <div class="cart__item__content__description">
                 <h2>${apiDataProducts.name}</h2>
                 <p>${basket[productOrdered].colorOfProduct}</p>
-                <p>${apiDataProducts.price}€</p>
+                <p>${totalPriceArticle}€</p>
             </div>
             <div class="cart__item__content__settings">
                 <div class="cart__item__content__settings__quantity">
@@ -52,5 +57,33 @@ async function creatBasketProductList(productOrdered) {
     </article>
     `;
     document.getElementById("cart__items").appendChild(newArticle);
+    console.log(total);
   }
+  // Utilisation de reduce.
+
+  const sum = (acc, elem) => acc + elem;
+  const totalAll = total.reduce(sum);
+  document.getElementById("totalPrice").innerHTML += `${totalAll}`;
+  // changeQuantityOfProduct();
+  // deleteProduct();
+  // totalCalculator();
 }
+
+// Objectif : Changer les quantités commandées et supprimer des
+// Gestion du changement de quantité
+// Ecouter le input avec addEventListener
+// En utilisant Element.closest() Si input augmente alors basket[productOrdered].quantityOfProduct augmente aussi dans le local storage
+// Idée: Appliquer la fonctoin .filter et dire en callback de retourner tous les id qui ne sont pas identique a celui du produit séléctionné.
+// j'aurai donc un tableau avec tous les id sauf celui du produit qui correspond au produit selectionné.
+// faire un addevent listener sur "supprimer" ainsi qu'un element.closest(data-id="${basket[productOrdered].idOfProduct}") voir si besoin d'ajouter la couleur.
+
+// function deleteProduct() {
+//   let productToRemove = document.querySelectorAll(".deleteItem");
+//   productToRemove.addEventListener("click", () =>{
+//     let product_targeted_toDelete = productToRemove.closest(".cart__item");
+//     let productId_targeted_toDelete = productToRemove.dataset.id;
+//     let productColor_targeted_toDelete = productToRemove.dataset.color;
+//   })
+// }
+
+// push total
