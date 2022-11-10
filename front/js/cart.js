@@ -12,6 +12,7 @@ creatBasketProductList(basket);
 async function creatBasketProductList() {
   // Création du tableau qui va contenir le prix total de chaque ligne de produits
   const total = [];
+  const totalQtyOrdered= [];
 
   // Création de l'itération "productOrdered" qui va parcourir le tableau "basket" qui est notre panier dans le local storage
   for (productOrdered in basket) {
@@ -28,13 +29,19 @@ async function creatBasketProductList() {
     // Positionnement sur l'élément HTML qui va recevoir les nouveaux éléments.
     let newArticle = document.createElement("article");
 
-    // Stockage du prix total du produit commandé
+    // Stockage du prix total du produit commandé 
     const totalPriceArticle =
       basket[productOrdered].quantityOfProduct * apiDataProducts.price;
 
-    // Push du prix total du produit dans le tableau de stockage des prix totaux que nous avons créé
-    total.push(totalPriceArticle);
+    // Stockage de la quantité totale du produit commandé 
+    const totalQtyArticle =
+      basket[productOrdered].quantityOfProduct;
 
+      // Push du prix total du produit dans le tableau de stockage des prix totaux que nous avons créé
+      total.push(totalPriceArticle);
+      // Push de la quantité totale du produit dans le tableau de stockage des quantités totales que nous avons créé
+      totalQtyOrdered.push(totalQtyArticle);
+      
     // Création du reste des éléments HTML et implémentation des données de l'api et des données issues du localstorage et de notre boucle for
     newArticle.innerHTML = `
     <article class="cart__item" data-id="${
@@ -78,6 +85,15 @@ async function creatBasketProductList() {
 
   // intégration du resultat total des prix dans la balise HTML "totalPrice"
   document.getElementById("totalPrice").innerHTML += `${totalAll}`;
+
+  // Utilisation de la fonction reduce pour calculer le total des quantités de la commande.
+  const sumQty = (accumulateur, qty) => accumulateur + qty;
+  const totalAllQty = totalQtyOrdered.reduce(sumQty);
+  console.log("voici le test de " + totalAllQty);
+
+  // intégration du resultat total des prix dans la balise HTML "totalPrice"
+  document.getElementById("totalQuantity").innerHTML += `${totalAllQty}`;
+
   changedQty();
   deleteProduct();
 }
