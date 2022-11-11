@@ -175,13 +175,9 @@ let addressChecked;
 let cityChecked;
 let emailChecked;
 
-let contact = {
-  firstName: firstNameChecked,
-  lasName: lastNameChecked,
-  address: addressChecked,
-  city: cityChecked,
-  email: emailChecked,
-};
+let contact = {};
+
+
 
 // Ecoute des changements qui sont fait sur les champs. console.log de ce qui a été mis dans le champs par l'utilisateur
 // Test des inputs renseignés par l'utilisateur versus regex.
@@ -191,6 +187,8 @@ firstNameInput.addEventListener("change", function () {
     console.log("le test du prénom est validé");
     document.getElementById("firstNameErrorMsg").innerText = "champ validé.";
     firstNameChecked = firstNameInput.value;
+    contact.firstName=firstNameChecked;
+    console.log("voici le prenom enregistré dans l'objet contact: " +contact.firstName);
   } else {
     document.getElementById("firstNameErrorMsg").innerText =
       "Prénom incorrect. Merci de ne pas utiliser de chiffres et caractères spéciaux.";
@@ -202,6 +200,8 @@ lastNameInput.addEventListener("change", function () {
     console.log("le test du nom de famille est validé");
     document.getElementById("lastNameErrorMsg").innerText = "champ validé.";
     lastNameChecked = lastNameInput.value;
+    contact.lastName=lastNameChecked;
+    console.log("voici le nom enregistré dans l'objet contact: " +contact.lastName);
   } else {
     document.getElementById("lastNameErrorMsg").innerText =
       "Nom incorrect. Merci de ne pas utiliser de chiffres et caractères spéciaux.";
@@ -213,6 +213,8 @@ addressInput.addEventListener("change", function () {
     console.log("le test de l'adresse est validé");
     document.getElementById("addressErrorMsg").innerText = "champ validé.";
     addressChecked = addressInput.value;
+    contact.address=addressChecked;
+    console.log("voici l'adresse' enregistré dans l'objet contact: " +contact.address);
   } else {
     document.getElementById("addressErrorMsg").innerText =
       "Adresse incorrect. Merci de ne pas utiliser de caractères spéciaux.";
@@ -223,6 +225,8 @@ cityInput.addEventListener("change", function () {
     console.log("le test de la ville est validé");
     document.getElementById("cityErrorMsg").innerText = "champ validé.";
     cityChecked = cityInput.value;
+    contact.city=cityChecked;
+    console.log("voici la ville enregistré dans l'objet contact: " +contact.city);
   } else {
     document.getElementById("cityErrorMsg").innerText =
       "Ville incorrect. Merci de ne pas utiliser de caractères spéciaux.";
@@ -233,31 +237,34 @@ emailInput.addEventListener("change", function () {
     console.log("le test de l'email est validé");
     document.getElementById("emailErrorMsg").innerText = "champ validé.";
     emailChecked = emailInput.value;
+    contact.email=emailChecked;
+    console.log("voici l'email enregistré dans l'objet contact: " +contact.email);
   } else {
     document.getElementById("emailErrorMsg").innerText =
       "email incorrect. exemple de mail valide : *****@****.fr";
   }
 });
-
+ console.log(contact);
 // 2/ l'utilisateur va cliquer sur le bouton "commander". Il faut donc écouter ce clique
 // 2.1 récuperer le buton commander et le stocker dans un variable
 let btnOrder = document.getElementById("order");
 // 2.2 écouter la variable qui contient le button avec event 'click'
-btnOrder.addEventListener("click", function () {
-  // if(){
-
-  // }else{
-
-  // }
-  console.log(contact);
+btnOrder.addEventListener("submit", function () {
+  document.location.href = "./confirmation.html/";
 });
+
+
+let produits = [];
+basket.forEach(productOrdered => { produits.push(productOrdered.idOfProduct)});
+console.log("voici mon tableau avec les id de prouduits: "+produits);
+
 
 // 3/ l'event click sur le bouton va envoyer les informations à l'API
 // 3.1 Creer un objet "contact" qui contiendra toutes les données de la commande (firstName, lastName, adresse, city, email)
 
 // 3.2 Creer un tableau "produits" qui contient un id
 
-let produits = [];
+
 // 3.3 Stringify l'objet commande pour l'avoir au format JSON
 // 3.4 Envoyer une requete POST à l'API qui contient le JSON de l'objet "commande".
 // 3.5 Redirection vers la page confirmation avec message de confirmation contenant l'id de la commande envoyé 1 seul
