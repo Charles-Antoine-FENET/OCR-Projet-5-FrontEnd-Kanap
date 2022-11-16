@@ -1,95 +1,62 @@
-console.log("script.js connecté !!");
+// import { fetchProduct, displayProducts } from "./library.js";
 
-// Appel à l'API via la fonction fetch
-fetch("http://localhost:3000/api/products")
-
-// On recupère la promesse dans un fichier json avec la fonction asynchrone .then
-.then(function (apiProductsResult) {
-  if (apiProductsResult.ok) {
-    return apiProductsResult.json();
-  }
-})
-// On donne le nom "jsonData" aux données que la promesse nous retourne. 
-// Puis on appel la fonction display en lui donnant en argument
-// les données que l'api nous a retourné.
-.then((jsonData) => display(jsonData)); 
-
-// Création d'une fonction "display" qui a pour but d'être invoquée sur la réponse de l'API
-function display(dataProducts) {
-  // Positionnement sur l'élément parent à ceux que nous devons créer.
-  let getSectionItems = document.getElementById("items");
-  
-  // Création d'une boucle qui va parcourir "jsonData" et creer des éléments à chaque itération.
-  for (product of dataProducts) {
-    // Initialisation des éléments que nous devons créer
-    let newLink = document.createElement("a");
-    let newArticle = document.createElement("article");
-    
-    // Création du contenu et des attributs nécessaires pour les éléments
-    newLink.setAttribute("href", `./product.html?id=${product._id}`);
-    newArticle.innerHTML =
-    `<img src=${product.imageUrl} alt=${product.altTxt}><h3 class='productName'>${product.name}</h3><p class='productDescription'>${product.description}</p>`;
-    
-    
-    // Ajoût des éléments dans le DOM
-    newLink.appendChild(newArticle);
-    getSectionItems.appendChild(newLink);
-  }
-}
-
-
-
-// Zone d'ariche des méthodes que j'ai pu tester mais que je n'ai pas retenu.
-
-// fetch("http://localhost:3000/api/products")
-//   .then(function (apiProductsResult) {
-//     if (apiProductsResult.ok) {
-//       return apiProductsResult.json();
-//     }
-//   })
-//   //   Récuperation de la réponse émise par l'API dans la fonction que je nomme "dataProducts"
-//   //   Puis creation d'une boucle qui va lire chaque instance de l'objet "produit" qui est disponible sur le serveur
-//   //   dataProduct récupère et contient donc les résultats de l'api. getProduct est créé comme itération de la boucle for et va lire dans dans dataProduct ligne par ligne
-//   .then(function (dataProducts) {
-//     for (let getProduct in dataProducts) {
-//       function creatProduct() {
-//         // Initialisation des éléments à creer dans le DOM
-//         let newLink = document.createElement("a");
-//         let newArticle = document.createElement("article");
-//         let newImg = document.createElement("img");
-//         let newProductName = document.createElement("h3");
-//         let newProductDescription = document.createElement("p");
-
-//         //   Positionnement sur l'élément qui va recevoir les nouveaux éléments
-//         let getSectionItems = document.getElementById("items");
-
-//         //   Ajoût du lien dans l'élément
-//         getSectionItems.appendChild(newLink);
-//         newLink.setAttribute("href", `./product.html?id=${dataProducts[getProduct]._id}`);
-
-//         //   Ajoût de l'article dans le lien
-//         newLink.appendChild(newArticle);
-
-//         //   Ajoût de l'img dans l'article
-//         newArticle.appendChild(newImg);
-//         newImg.setAttribute("src", dataProducts[getProduct].imageUrl);
-//         newImg.setAttribute("alt", dataProducts[getProduct].altTxt);
-
-//         //   Ajoût de titre du nouveau produit dans l'article
-//         newArticle.appendChild(newProductName);
-//         newProductName.classList.add("productName");
-//         newProductName.innerHTML = dataProducts[getProduct].name;
-
-//         //   Ajoût de la description du nouveau produit dans l'article
-//         newArticle.appendChild(newProductDescription);
-//         newProductDescription.classList.add("productDescription");
-//         newProductDescription.innerHTML = dataProducts[getProduct].description;
-//       }
-//       creatProduct(dataProducts[getProduct]);
-//     }
-//   })
-//   .catch(function (err) {
-//     // Une erreur est survenue
-//   });
-
-  // On recupère via un second .then les données de la réponse de la promesse de l'API. 
+/**
+ *  * This variable store the promese from our fetch
+ * Then we get the json data from the api and displayed the data on the screen
+ * please read this documentation https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Promises#async_et_await
+ */
+ const jsonProduct_promese = fetchProduct();
+ jsonProduct_promese.then((json) => displayProducts(json));
+ 
+ /**
+  * This function call the api, ask the products list and get a promese
+  * Please read this documentation https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Promises#async_et_await
+  * Please read this documentation https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577591-recuperez-des-donnees-dun-service-web
+  * @returns The product list is return in JSON
+  */
+ 
+ async function fetchProduct() {
+   try {
+     const response = await fetch("http://localhost:3000/api/products");
+     if (!response.ok) {
+       throw new Error(`Erreur HTTP: ${response.statut}`);
+     }
+     const json = await response.json();
+     return json;
+   } catch (error) {
+     console.error(`Impossible d'obtenir les produits : ${error}`);
+   }
+ }
+ 
+ /**
+  * This function get the json data from the api and create html elements
+  * in order to be displayed on screen when users load the index.html page.
+  * Please read this documentation https://developer.mozilla.org/fr/docs/Web/API/Element/innerHTML
+  * Please read this documentation https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577491-modifiez-le-dom
+  * To send and get the _id of the product into the product.html's url, please read the fallowing ressources:
+  * https://developer.mozilla.org/fr/docs/Web/API/URLSearchParams and https://waytolearnx.com/2019/10/comment-recuperer-les-parametres-durl-en-javascript.html
+  * @param {Object} dataFromApi
+  */
+ function creatHtmlElmt(dataFromApi){
+     console.log(dataFromApi)
+     document.getElementById("items").innerHTML +=
+     `<a href="./product.html?id=${dataFromApi._id}">
+     <article>
+       <img src=${dataFromApi.imageUrl} alt=${dataFromApi.altTxt}>
+       <h3 class="productName">${dataFromApi.name}</h3>
+       <p class="productDescription">${dataFromApi.description}</p>
+     </article>
+   </a>`
+ }
+ 
+ /**
+  * This function loop the Json array send from the api dans call creatHtmlElmt()
+  * This will creat for each product a specific element into the hmtl and display the product on the screen
+  * Please read this documentation https://openclassrooms.com/fr/courses/6175841-apprenez-a-programmer-avec-javascript/6279104-utilisez-la-bonne-boucle-pour-repeter-les-taches-for-while#/id/r-7179203
+  * @param {Object} dataFromApi
+  */
+ function displayProducts(dataFromApi){
+     for(product of dataFromApi){
+         creatHtmlElmt(product)
+     }
+ }

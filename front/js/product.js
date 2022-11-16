@@ -17,19 +17,19 @@ fetch("http://localhost:3000/api/products/" + currentId)
       return apiProductsResult.json();
     }
   })
-  .then((jsonData) => displayProductPage(jsonData));
+  .then((jsApiData) => displayProductPage(jsApiData));
 
 // Création de la fonction qui va creer les éléments nécessaires à la page
-function displayProductPage(dataProduct) {
+function displayProductPage(apiDataProduct) {
   let getItemImg = document.querySelector(".item__img");
-  getItemImg.innerHTML = `<img src=${dataProduct.imageUrl} alt=${dataProduct.altTxt}>`;
-  document.getElementById("title").textContent = dataProduct.name;
-  document.getElementById("price").textContent = dataProduct.price;
-  document.getElementById("description").textContent = dataProduct.description;
+  getItemImg.innerHTML = `<img src=${apiDataProduct.imageUrl} alt=${apiDataProduct.altTxt}>`;
+  document.getElementById("title").textContent = apiDataProduct.name;
+  document.getElementById("price").textContent = apiDataProduct.price;
+  document.getElementById("description").textContent = apiDataProduct.description;
 
   // Creation des choix multiples
-  for (colorChoice of dataProduct.colors) {
-    console.log(dataProduct.colors[colorChoice]);
+  for (colorChoice of apiDataProduct.colors) {
+    console.log(apiDataProduct.colors[colorChoice]);
     // Initialisation des éléments à creer dans le DOM
     function creatColorChoices() {
       let colorOption = document.createElement("option"); // Création du choix de couleur
@@ -37,7 +37,7 @@ function displayProductPage(dataProduct) {
       colorOption.setAttribute = ("value", colorChoice); // Ajoût des attributs "value" a chaque iteration de la boucle et callback sur la couleur de l'iteration.
       colorOption.innerText = colorChoice; // Intégration de la couleur que l'itération aura donnée, dans la balise html
     }
-    creatColorChoices(dataProduct.colors[colorChoice]); //execution de la creation des elements dans ma boucle
+    creatColorChoices(apiDataProduct.colors[colorChoice]); //execution de la creation des elements dans ma boucle
   }
 }
 
@@ -79,6 +79,7 @@ function addToBasket(productOrdered) {
     basket.push(productOrdered);
   }
   window.localStorage.setItem("basket", JSON.stringify(basket));
+  // envoyer l'id order dans l'adress et l'afficher dans un l'html
 }
 
 // Zone d'archive du dirty code.
@@ -89,12 +90,12 @@ function addToBasket(productOrdered) {
 //       return apiProductsResult.json();
 //     }
 //   })
-//   .then(function (dataProduct) {
+//   .then(function (apiDataProduct) {
 //     function creatProduct() {
 //       // Initialisation des éléments à creer dans le DOM
 //       let newImg = document.createElement("img");
-//       newImg.setAttribute("src", dataProduct.imageUrl);
-//       newImg.setAttribute("alt", dataProduct.altTxt);
+//       newImg.setAttribute("src", apiDataProduct.imageUrl);
+//       newImg.setAttribute("alt", apiDataProduct.altTxt);
 //       console.log(newImg);
 
 //       //   Positionnement sur l'élément qui va recevoir les nouveaux éléments
@@ -104,14 +105,14 @@ function addToBasket(productOrdered) {
 //       getItemImg.appendChild(newImg);
 
 //       // Renseigner les balises avec les data du fetch
-//       document.getElementById("title").textContent = dataProduct.name;
-//       document.getElementById("price").textContent = dataProduct.price;
+//       document.getElementById("title").textContent = apiDataProduct.name;
+//       document.getElementById("price").textContent = apiDataProduct.price;
 //       document.getElementById("description").textContent =
-//         dataProduct.description;
+//         apiDataProduct.description;
 
 //       //   Creation des choix multiples
-//       for (colorChoice of dataProduct.colors) {
-//         console.log(dataProduct.colors[colorChoice]);
+//       for (colorChoice of apiDataProduct.colors) {
+//         console.log(apiDataProduct.colors[colorChoice]);
 //         // Initialisation des éléments à creer dans le DOM
 //         function creatColorChoices() {
 //           let colorOption = document.createElement("option"); // Création du choix de couleur
@@ -119,12 +120,12 @@ function addToBasket(productOrdered) {
 //           colorOption.setAttribute = ("value", colorChoice); // Ajoût des attributs "value" a chaque iteration de la boucle et callback sur la couleur de l'iteration.
 //           colorOption.innerText = colorChoice; // Intégration de la couleur que l'itération aura donnée, dans la balise html
 //         }
-//         creatColorChoices(dataProduct.colors[colorChoice]); //execution de la creation des elements dans ma boucle
+//         creatColorChoices(apiDataProduct.colors[colorChoice]); //execution de la creation des elements dans ma boucle
 
 //         // Positionnement sur l'élément qui va recevoir les nouveaux éléments
 
 //         // ajoût du choix possible2
 //       }
 //     }
-//     creatProduct(dataProduct);
+//     creatProduct(apiDataProduct);
 //   });
