@@ -1,9 +1,11 @@
-// This file store all api function we need to get informations from api
+// This file "dataApiManager" store all api function we need to get informations from api
 import { contact } from "./formManager.js";
 /**
  * This function call the api, ask the products list and get a promese
- * Please read this documentation https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Promises#async_et_await
+ * Please read this documentation https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Promises#async_et_await and https://developer.mozilla.org/fr/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data
  * Please read this documentation https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577591-recuperez-des-donnees-dun-service-web
+ * @async
+ * @function
  * @returns The product list is return in JSON
  */
 
@@ -24,7 +26,7 @@ export async function fetchProducts() {
  *
  * this function need in argument the function call getCurrentId
  * then it return the promese from the api about only the product targeted by the current id
- * Please read this documentation https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Promises#async_et_await
+ * Please read this documentation https://developer.mozilla.org/fr/docs/Learn/JavaScript/Asynchronous/Promises#async_et_await and https://developer.mozilla.org/fr/docs/Learn/JavaScript/Client-side_web_APIs/Fetching_data
  * Please read this documentation https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577591-recuperez-des-donnees-dun-service-web
  * @param {function} currentId
  * @returns {promese}
@@ -50,6 +52,7 @@ export async function fetchOneProduct(currentId) {
 export let produits = [];
 
 /**This function get "contact" array and "produits" array and send it to the API by POST method
+ * Please read this documentation: https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577626-sauvegardez-des-donnees-sur-le-service-web
  * @fonction
  */
 export function passOrder(event) {

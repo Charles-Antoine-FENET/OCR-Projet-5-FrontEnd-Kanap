@@ -7,6 +7,11 @@ export let addressInput = document.getElementById("address");
 export let cityInput = document.getElementById("city");
 export let emailInput = document.getElementById("email");
 
+
+/**
+ * This function check inputs validity. If the informations are valids, they will be sent to the "contact" object.
+ * @function
+ */
 export function testFirstName() {
   let validFirstName = /^[a-zA-Z\-]+$/g;
   if (validFirstName.test(firstNameInput.value)) {
@@ -17,6 +22,11 @@ export function testFirstName() {
       "Prénom incorrect. Merci de ne pas utiliser de chiffres et caractères spéciaux.";
   }
 }
+
+/**
+ * This function check inputs validity. If the informations are valids, they will be sent to the "contact" object.
+ * @function
+ */
 export function testLastName() {
   let validLastName = /^[a-zA-Z\-]+$/g;
   if (validLastName.test(lastNameInput.value)) {
@@ -28,6 +38,10 @@ export function testLastName() {
   }
 }
 
+/**
+ * This function check inputs validity. If the informations are valids, they will be sent to the "contact" object.
+ * @function
+ */
 export function testAdresse() {
   let validAdress = /^[a-zA-Z\-\0-9]+$/g;
   if (validAdress.test(addressInput.value)) {
@@ -38,6 +52,11 @@ export function testAdresse() {
       "Adresse incorrect. Merci de ne pas utiliser de caractères spéciaux.";
   }
 }
+
+/**
+ * This function check inputs validity. If the informations are valids, they will be sent to the "contact" object.
+ * @function
+ */
 export function testCity() {
   let validCity = /^[a-zA-Z\-]+$/g;
   if (validCity.test(cityInput.value)) {
@@ -48,6 +67,11 @@ export function testCity() {
       "Ville incorrect. Merci de ne pas utiliser de caractères spéciaux.";
   }
 }
+
+/**
+ * This function check inputs validity. If the informations are valids, they will be sent to the "contact" object.
+ * @function
+ */
 export function testEmail() {
   let validEmail =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;

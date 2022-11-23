@@ -9,6 +9,7 @@ import { changedQty, deleteProduct } from "./fxLibrary.js";
  * Please read this documentation https://openclassrooms.com/fr/courses/5543061-ecrivez-du-javascript-pour-le-web/5577491-modifiez-le-dom
  * To send and get the _id of the product into the product.html's url, please read the fallowing ressources:
  * https://developer.mozilla.org/fr/docs/Web/API/URLSearchParams and https://waytolearnx.com/2019/10/comment-recuperer-les-parametres-durl-en-javascript.html
+ * @function
  * @param {Object} dataFromApi
  */
 export function templateOne(dataFromApi) {
@@ -25,9 +26,10 @@ export function templateOne(dataFromApi) {
 
 /**
  * Used to display "TEMPLATE 1"
- * This function loop the Json array send from the api dans call templateOne()
+ * This function loop the Json array send from the api dans call templateOne() function
  * This will creat for each product a specific element into the hmtl and display the product on the screen
- * Please read this documentation https://openclassrooms.com/fr/courses/6175841-apprenez-a-programmer-avec-javascript/6279104-utilisez-la-bonne-boucle-pour-repeter-les-taches-for-while#/id/r-7179203
+ * Please read this documentation https://openclassrooms.com/fr/courses/6175841-apprenez-a-programmer-avec-javascript/6279104-utilisez-la-bonne-boucle-pour-repeter-les-taches-for-while#/id/r-7179203 and https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Statements/for...of
+ * @function
  * @param {Object} dataFromApi
  */
 export function displayProducts(dataFromApi) {
@@ -39,7 +41,9 @@ export function displayProducts(dataFromApi) {
 /**
  * "TEMPLATE 2" for product.html
  * This function create the html element needed to display a card of the product.
- * It will add to the cardProduct : Picture, name, price and description of the product selected
+ * It will add to the "cardProduct" : Picture, name, price and description of the product selected
+ * pleade read this documentation: https://developer.mozilla.org/fr/docs/Web/API/Document/querySelector, https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
+ * @function
  * @param {Object} dataFromApi
  */
 export function templateTwo(dataFromApi) {
@@ -52,27 +56,29 @@ export function templateTwo(dataFromApi) {
 
 /**
  * Used to add colors choices to "TEMPLATE 2"
- * This fonction get into the data fetched from the api the list of colors possible to order for the selected product
+ * This fonction get into the data fetched from the api, the list of colors possible to order for the selected product.
  * This function loop the array stored into the "colors" propety of the object fetched from the api.
  * To know more about the loop please read this documentation: https://openclassrooms.com/fr/courses/6175841-apprenez-a-programmer-avec-javascript/6279104-utilisez-la-bonne-boucle-pour-repeter-les-taches-for-while#/id/r-7179203
  * To know more about how creat html elements, please read this documentation : https://developer.mozilla.org/fr/docs/Web/API/Element/innerHTML and/or https://developer.mozilla.org/fr/docs/Web/API/HTMLElement/innerText
+ * @function
  * @param {Object} dataFromApi
  */
 export function addColorsList(dataFromApi) {
   for (let colorChoice of dataFromApi.colors) {
     function creatColorChoices() {
-      let colorOption = document.createElement("option"); // Création du choix de couleur
-      document.getElementById("colors").appendChild(colorOption); //positionnement sur l'élément parent et intégration des éléments enfants
-      colorOption.setAttribute = ("value", colorChoice); // Ajoût des attributs "value" a chaque iteration de la boucle et callback sur la couleur de l'iteration.
-      colorOption.innerText = colorChoice; // Intégration de la couleur que l'itération aura donnée, dans la balise html
+      let colorOption = document.createElement("option"); 
+      document.getElementById("colors").appendChild(colorOption);
+      colorOption.setAttribute = ("value", colorChoice); 
+      colorOption.innerText = colorChoice; 
     }
-    creatColorChoices(dataFromApi.colors[colorChoice]); //execution de la creation des elements dans ma boucle
+    creatColorChoices(dataFromApi.colors[colorChoice]); 
   }
 }
 
 /**
  * Used to display "TEMPLATE 2"
- * This function create the productcard and displayed it on screen
+ * This function create the productcard and displayed it on screen.
+ * @function
  * @param {Object} dataFromApi
  */
 export function displayOneProduct(dataFromApi) {
@@ -84,6 +90,7 @@ export function displayOneProduct(dataFromApi) {
  * "TEMPLATE 3" for cart.html
  * This function get informations from a loop and create html elements.
  * Each iterations will creat a new element into the DOM in order to be display by calling displayBasketProducts() function
+ * pleade read this documentation: https://developer.mozilla.org/fr/docs/Web/API/Document/getElementById, https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
  * @param {Object} productOrdered. Itération from a loop
  * @param {Object} dataFromApi Itération of the object from the Api
  */
@@ -121,19 +128,6 @@ export function templateThree(productOrdered, dataFromApi) {
     </article>`;
 }
 
-// /**
-//  * This function get products from the localstorage, get the data from the API. Then, for each product ordered the function will create html element base on "TEMPLATE 3" by using templateThree
-//  */
-// export async function displayBasketProducts() {
-//   let basket = JSON.parse(localStorage.getItem("basket"));
-//   for (let productOrdered of basket) {
-//     let productOrderedID = productOrdered.idOfProduct;
-//     let dataFromApi = await fetchOneProduct(productOrderedID);
-//     templateThree(productOrdered, dataFromApi);
-//   }
-// }
-
-// zone de test
 
 /**
  * those variables are used to store prices and quantities by product ordered
@@ -145,6 +139,9 @@ const totalQtyOrdered = [];
 
 /**
  * This function get products from the localstorage, get the data from the API. Then, for each product ordered the function will create html element base on "TEMPLATE 3" by using templateThree
+ * Please read this documentation: https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse and https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Statements/for...of
+ * @async
+ * @function 
  */
 export async function displayBasketProducts() {
   let basket = JSON.parse(localStorage.getItem("basket"));
@@ -168,7 +165,9 @@ export async function displayBasketProducts() {
 /**
  * This function calculate totals in order to be display into cart.html
  * "total" array and "totalQtyOrdered" array ared declared into the file "displayConfig.js"
+ * Please read this documentation: https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
  * @function
+ * @returns {string} 
  */
 function displayTotals() {
   const sum = (accumulateur, prices) => accumulateur + prices;
