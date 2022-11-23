@@ -61,12 +61,12 @@ export function templateTwo(dataFromApi) {
 export function addColorsList(dataFromApi) {
   for (let colorChoice of dataFromApi.colors) {
     function creatColorChoices() {
-      let colorOption = document.createElement("option");
-      document.getElementById("colors").appendChild(colorOption);
-      colorOption.setAttribute = ("value", colorChoice);
-      colorOption.innerText = colorChoice;
+      let colorOption = document.createElement("option"); // Création du choix de couleur
+      document.getElementById("colors").appendChild(colorOption); //positionnement sur l'élément parent et intégration des éléments enfants
+      colorOption.setAttribute = ("value", colorChoice); // Ajoût des attributs "value" a chaque iteration de la boucle et callback sur la couleur de l'iteration.
+      colorOption.innerText = colorChoice; // Intégration de la couleur que l'itération aura donnée, dans la balise html
     }
-    creatColorChoices(dataFromApi.colors[colorChoice]);
+    creatColorChoices(dataFromApi.colors[colorChoice]); //execution de la creation des elements dans ma boucle
   }
 }
 
