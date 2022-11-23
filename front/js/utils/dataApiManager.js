@@ -7,21 +7,20 @@ import { contact } from "./formManager.js";
  * @returns The product list is return in JSON
  */
 
- export async function fetchProducts() {
-    try {
-      const response = await fetch("http://localhost:3000/api/products");
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP: ${response.statut}`);
-      }
-      const json = await response.json();
-      return json;
-    } catch (error) {
-      console.error(`Impossible d'obtenir les produits : ${error}`);
+export async function fetchProducts() {
+  try {
+    const response = await fetch("http://localhost:3000/api/products");
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.statut}`);
     }
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(`Impossible d'obtenir les produits : ${error}`);
   }
-  
+}
 
-  /**
+/**
  *
  * this function need in argument the function call getCurrentId
  * then it return the promese from the api about only the product targeted by the current id
@@ -30,31 +29,28 @@ import { contact } from "./formManager.js";
  * @param {function} currentId
  * @returns {promese}
  */
- export async function fetchOneProduct(currentId) {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/api/products/" + currentId
-      );
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP: ${response.statut}`);
-      }
-      const json = await response.json();
-      return json;
-    } catch (error) {
-      console.error(`Impossible d'obtenir les produits : ${error}`);
+export async function fetchOneProduct(currentId) {
+  try {
+    const response = await fetch(
+      "http://localhost:3000/api/products/" + currentId
+    );
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP: ${response.statut}`);
     }
+    const json = await response.json();
+    return json;
+  } catch (error) {
+    console.error(`Impossible d'obtenir les produits : ${error}`);
   }
-
-
+}
 
 /**This array store products ordered by users in order to be send to the API
- * @let 
+ * @let
  */
-export let produits =[];
-
+export let produits = [];
 
 /**This function get "contact" array and "produits" array and send it to the API by POST method
- * @fonction 
+ * @fonction
  */
 export function passOrder(event) {
   event.preventDefault();
@@ -76,7 +72,7 @@ export function passOrder(event) {
     })
     .then((res) => {
       window.location.replace(`./confirmation.html?id=${res.orderId}`);
-      console.log(res) 
-      localStorage.clear()
+      console.log(res);
+      localStorage.clear();
     });
 }

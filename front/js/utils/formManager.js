@@ -39,23 +39,23 @@ export function testAdresse() {
   }
 }
 export function testCity() {
-    let validCity = /^[a-zA-Z\-]+$/g;
-    if (validCity.test(cityInput.value)) {
-        document.getElementById("cityErrorMsg").innerText = "champ validé.";
-        contact.city = cityInput.value;
-      } else {
-        document.getElementById("cityErrorMsg").innerText =
-          "Ville incorrect. Merci de ne pas utiliser de caractères spéciaux.";
-      }
+  let validCity = /^[a-zA-Z\-]+$/g;
+  if (validCity.test(cityInput.value)) {
+    document.getElementById("cityErrorMsg").innerText = "champ validé.";
+    contact.city = cityInput.value;
+  } else {
+    document.getElementById("cityErrorMsg").innerText =
+      "Ville incorrect. Merci de ne pas utiliser de caractères spéciaux.";
+  }
 }
 export function testEmail() {
-    let validEmail =
+  let validEmail =
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    if (validEmail.test(emailInput.value)) {
-        document.getElementById("emailErrorMsg").innerText = "champ validé.";
-        contact.email = emailInput.value;
-      } else {
-        document.getElementById("emailErrorMsg").innerText =
-          "email incorrect. exemple de mail valide : *****@****.fr";
-      }   
+  if (validEmail.test(emailInput.value)) {
+    document.getElementById("emailErrorMsg").innerText = "champ validé.";
+    contact.email = emailInput.value;
+  } else {
+    document.getElementById("emailErrorMsg").innerText =
+      "email incorrect. exemple de mail valide : *****@****.fr";
+  }
 }

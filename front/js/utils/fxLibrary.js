@@ -31,9 +31,7 @@ export function validOrder() {
     addToBasket(productOrdered);
     alert(`Votre produit à été ajouté au panier`);
   } else {
-    alert(
-      "Bonjour, Veuillez choisir choisir une couleur et/ou une quantité valide."
-    );
+    alert("Bonjour, Veuillez choisir une couleur et/ou une quantité valide.");
   }
 }
 
@@ -79,10 +77,18 @@ export function changedQty() {
             product.colorOfProduct == currentColor
         );
         newQuantity.quantityOfProduct = +event.target.value;
-        localStorage.setItem("basket", JSON.stringify(basket));
-        location.reload();
+        if (Number.isInteger(newQuantity.quantityOfProduct)) {
+          localStorage.setItem("basket", JSON.stringify(basket));
+          location.reload();
+        } else {
+          alert(
+            "Merci de renseigner des quantités valides. Seuls les nombres entiers sont acceptés. "
+          );
+        }
       } else {
-        alert("Merci de vérifier les quantités");
+        alert(
+          "Merci de renseigner des quantités valides. Seuls les quantités entre 1 et 100 sont acceptés."
+        );
       }
     });
   });

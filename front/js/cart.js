@@ -17,10 +17,8 @@ import { produits, passOrder } from "./utils/dataApiManager.js";
 
 console.log("cart.js connecté");
 
-
 // Display product(s) ordered by users
 displayBasketProducts();
-
 
 // Test the formular before passing the order
 
@@ -45,7 +43,6 @@ emailInput.addEventListener("change", () => {
   console.log(contact);
 });
 
-
 // Push product ordered into the array "produits"
 
 let basket = JSON.parse(localStorage.getItem("basket"));
@@ -54,8 +51,7 @@ basket.forEach((productOrdered) => {
 });
 console.log("voici mon tableau avec les id de prouduits: " + produits);
 
-
-// Send to the API and redirect users to the confirmation.html page. 
+// Send to the API and redirect users to the confirmation.html page.
 document
   .querySelector(".cart__order__form")
   .addEventListener("submit", passOrder);
