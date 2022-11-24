@@ -15,6 +15,7 @@ import {
 
 import { produits, passOrder } from "./utils/dataApiManager.js";
 
+
 console.log("cart.js connecté");
 
 // Display product(s) ordered by users

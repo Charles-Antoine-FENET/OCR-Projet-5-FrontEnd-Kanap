@@ -18,10 +18,11 @@ export function getCurrentId() {
  * If inputs are ok, this function create the "productOrdered" Object and call the addToBasket function
  * @function
  */
+
 export function validOrder() {
   let productQuantity = document.getElementById("quantity").value;
   let colorSelected = document.getElementById("colors").value;
-  if (colorSelected != "" && productQuantity > 0 && productQuantity <= 100) {
+  if (Number.isInteger(productQuantity) && colorSelected != "" && productQuantity > 0 && productQuantity <= 100) {
     let productOrdered = {
       idOfProduct: getCurrentId(),
       quantityOfProduct: parseInt(productQuantity),
@@ -119,10 +120,10 @@ export function deleteProduct() {
       const currentColor = deleteItem
         .closest(".cart__item")
         .getAttribute("data-color");
+      let ProductToDelete = currentId + currentColor
       basket = basket.filter(
         (product) =>
-          product.idOfProduct != currentId &&
-          product.colorOfProduct != currentColor
+          product.idOfProduct +product.colorOfProduct != ProductToDelete
       );
       localStorage.setItem("basket", JSON.stringify(basket));
       location.reload();
