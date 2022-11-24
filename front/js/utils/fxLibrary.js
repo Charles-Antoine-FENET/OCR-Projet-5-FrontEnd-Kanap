@@ -122,10 +122,10 @@ export function deleteProduct() {
       const currentColor = deleteItem
         .closest(".cart__item")
         .getAttribute("data-color");
-      let ProductToDelete = currentId + currentColor
+      let productToDelete = currentId + currentColor
       basket = basket.filter(
         (product) =>
-          product.idOfProduct +product.colorOfProduct != ProductToDelete
+          product.idOfProduct +product.colorOfProduct != productToDelete
       );
       localStorage.setItem("basket", JSON.stringify(basket));
       location.reload();
