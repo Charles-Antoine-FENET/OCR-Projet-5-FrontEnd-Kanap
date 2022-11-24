@@ -20,9 +20,11 @@ export function getCurrentId() {
  */
 
 export function validOrder() {
-  let productQuantity = document.getElementById("quantity").value;
+  let productQuantity = parseFloat(document.getElementById("quantity").value);
   let colorSelected = document.getElementById("colors").value;
-  if (Number.isInteger(productQuantity) && colorSelected != "" && productQuantity > 0 && productQuantity <= 100) {
+  console.log(typeof(productQuantity))
+  console.log(Number.isInteger(productQuantity))
+  if (colorSelected != "" && productQuantity > 0 && productQuantity <= 100 && Number.isInteger(productQuantity)) {
     let productOrdered = {
       idOfProduct: getCurrentId(),
       quantityOfProduct: parseInt(productQuantity),
